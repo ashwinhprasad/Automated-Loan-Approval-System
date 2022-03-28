@@ -1,7 +1,43 @@
 {% extends 'base.html' %}
+{% load static %}
+
 {% block bodyblock %}
-    <h2>{{ bank.bankname }}</h2>
-    <p>{{ bank.email }}</p>
-    <p>{{ bank.contactnumber }}</p>
-    <p>{{ bank.address }}</p>
+{% include 'loggedIn.html' %}
+
+<br>
+<br>
+<br>
+    
+   
+
+
+      <div class="card">
+        <img src="{% static 'images/bank.jpg' %}" alt="Bank icon" style="width:100%" class="profileimg">
+        <h1>{{ bank.bankname }}</h1>
+      
+        <p class="profileLine">{{ bank.email }}</p>
+        <br>
+        <p>{{ bank.address }}</p>
+        <p>{{ bank.contactnumber }}</p>
+        
+        <br>
+      </div>
+
+    </div>
+    <div class="containerR">
+        <div class="wrapperR">
+          <form >
+            <div class="row button">
+            <a href="{% url 'update' %}">
+              <input type="button" value="Update Profile">
+              </a>
+            </div>
+            <div class="row button">
+                <a href="{% url 'passchange' %}">
+                  <input type="button" value="Change Password">
+                  </a>
+                </div>
+          </form>
+        </div>
+      </div>
 {% endblock %}

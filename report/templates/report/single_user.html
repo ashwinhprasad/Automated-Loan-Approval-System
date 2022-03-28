@@ -1,11 +1,92 @@
 {% extends 'base.html' %}
 {% block bodyblock %}
-    <form method="POST" >
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Predict</button>
+{% include 'loggedIn.html' %}
+<br><br>
+
+<div class="containerSide">
+  <div class="wrapperSide">
+    <form >
+      <div class="row button">
+      <a href="{% url 'sheet-report' %}">
+        <input type="button" value="Predict for multiple users >>>">
+        </a>
+      </div>
+
     </form>
-    {% if out is not None %}
-        <p>{{ out }}</p>
-    {% endif %}
+  </div>
+</div>
+  <div class="containerSingle">
+    <div class="wrapper">
+      <form method="POST" >
+          {% csrf_token %}
+          <div class="rowf">
+            <div class="columnf columnff">
+               <label class="singlelabel">Email</label>  {{ form.email }}
+            </div>
+            <div class="columnf">
+              <label class="singlelabel">Name</label>
+                {{form.name}} 
+            </div>
+          </div>
+         
+          <div class="rowf">
+            <div class="columnf columnff">
+              <label class="singlelabel">Education</label>
+               {{ form.education }} 
+            </div>
+            <div class="columnf">
+              <label class="singlelabel">Income</label>
+              {{ form.income }} 
+            </div>
+          </div>
+        
+          <div class="rowf ">
+            <div class="columnf columnff">
+              <label class="singlelabel">Credit</label>
+               {{ form.credit }} 
+            </div>
+            <div class="columnf">
+              <label class="singlelabel">Property Area</label>
+              {{ form.property_area }} 
+            </div>
+          </div>
+          
+          <div class="rowf">
+            <div class="columnf columnff">
+              <label class="singlelabel">Amount Term</label>
+              {{ form.amount_term }} 
+            </div>
+            <div class="columnf">
+              <label class="singlelabel">Maritial Status</label>
+               {{ form.marital_status }} 
+            </div>
+          </div>
+         
+          
+          <div class="rowf">
+            <div class="columnf">
+              <label class="singlelabel">Loan Amount</label>
+               {{ form.loan_amount }} 
+            </div>
+            
+          </div> 
+          <div >
+            <label class="singlelabel">Send mail to client?</label>
+             {{ form.send_mail }} 
+          </div>
+          
+           <div class="row button">
+            <input type="submit" value="Predict">
+          </div>
+
+          {% if out is not None %}
+            <p>{{ out }}</p>
+          {% endif %}
+
+      </form>
+  </div>
+  </div>
+
+    
+    
 {% endblock %}

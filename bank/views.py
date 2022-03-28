@@ -13,10 +13,11 @@ name: Home View
 desc: This view handles the homepage and the information that is to be
         displayed there.
 """
-@login_required(login_url='login')
 def HomeView(request):
-    return render(request,'home.html',{})
-
+    if request.user.is_authenticated:
+        return render(request,'home.html',{})
+    else:
+        return render(request,'landing.html',{})
 
 """
 name: Register Request View

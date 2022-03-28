@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block bodyblock %}
-{% include 'loggedIn.html' %}
+{% include 'navbar.html' %}
 <br><br><br>
 <div class="contain">
     <img src="{% static 'images/landi.jpg' %}" alt="image" class="homeimg">
     <div class="centered">
-        <!-- <p class="typewriter">Welcome {{ request.user.bankname }}!</p> -->
+        
         <div class="typewriter">
-            <p class="typewriter">Welcome {{ request.user.bankname }}!</p>
+            <p class="typewriter">One stop solution for making the loan approval process simpler!</p>
         </div>
     </div>
 
@@ -20,9 +20,8 @@
         <div class="wrapperR">
           <form >
             <div class="row button">
-              
-            <a href="{% url 'sheet-report' %}">
-              <input type="button" value="Get Started">
+            <a href="{% url 'register' %}">
+              <input type="button" value="Sign up to continue">
               </a>
               
             </div>
