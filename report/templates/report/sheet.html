@@ -1,8 +1,74 @@
 {% extends 'base.html' %}
+{% load widget_tweaks %}
 {% block bodyblock %}
-    <form method="POST" enctype="multipart/form-data" >
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Predict</button>
+{% include 'loggedIn.html' %}
+<br><br>
+<div class="containerSide">
+  <div class="wrapperSide">
+    <form >
+      <div class="row button">
+      <a href="{% url 'single-report' %}">
+        <input type="button" value="Predict for single user >>>">
+        </a>
+
+      </div>
+
     </form>
+  </div>
+</div>
+<div class="containerSheet">
+  <div class="wrapper">
+    <form method="POST" enctype="multipart/form-data" >
+      {% csrf_token %}
+      {{ form.sheet |add_class:'inputfile' }}
+      <label for="id_sheet" id="fileLabel">Click here to choose a file</label>
+      <div id="file-upload-filename"></div>
+      <div class="row button">
+        <input type="submit" value="Predict">
+      </div>
+    </form>
+  </div>
+</div>
+  <div class="containerI">
+    <div class="wrapperI">
+      <div class="content">
+        <b><center>INSTRUCTIONS FOR FILE FORMAT</center></b>
+        <br>
+        Please follow the instructions given below before uploading the applicants' details in csv file.
+        <br>
+        <br>
+        i. Your csv file should contain the following colums
+        
+        <Table Picture>
+        <br>
+        ii. Encode the columns given below using the respective mentioned values.
+      
+        <br> &emsp;&emsp;1. Gender - (Male:0 or Female:1)
+        <br> &emsp;&emsp;2. Married - (Yes : 0 or No : 1)
+        <br> &emsp;&emsp;3. Self Employed - (Yes : 1 or No : 0)
+        <br> &emsp;&emsp;4. Dependents - ('0' : 0 or '1' : 1 or '2' : 2 or '3+' : 3)
+        <br> &emsp;&emsp;5. Education - (Graduate : 1 or Not Graduate : 0)
+        <br> &emsp;&emsp;6. Property Area - (Rural : 0 or Semi-Urban : 1 or Urban : 2)
+        <br> &emsp;&emsp;7. Credit History - ('Credit History meet the guidelines : 1 or Credit History do not meet the guidelines : 0)
+        <br><br>
+        <b>Note :</b>  
+        Leave the values in the Co-Applicant Income, Applicant Income, Loan Amount and Loan Amount Term columns as it is.
+    </div>
+    </div>
+
+  </div>
+  </div>
+
+    <script>
+      var input1 = document.getElementById( 'id_sheet' );
+      var infoArea = document.getElementById( 'file-upload-filename' );
+      input1.addEventListener( 'change', showFileName );
+      function showFileName( event ) {
+      var input = event.srcElement;
+      var fileName = input.files[0].name;
+      infoArea.textContent = 'File name: ' + fileName;
+      var label = document.getElementById( 'fileLabel' );
+      label.innerHTML = "1 File choosen";
+    }
+    </script>
 {% endblock %}
