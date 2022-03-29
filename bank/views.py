@@ -28,6 +28,7 @@ def BankRegistrationRequestView(request):
         form = AccountRequestForm(request.POST,request.FILES)
         if form.is_valid():
             form.save()
+            return redirect('login')
     form = AccountRequestForm()
     return render(request,'bank/register.html',{'form':form})
 

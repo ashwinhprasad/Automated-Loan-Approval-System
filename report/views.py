@@ -5,6 +5,8 @@ import os
 import numpy as np, pandas as pd
 import pickle
 import lightgbm
+from django.core.mail import send_mail
+from django.conf import settings
 
 """
 name: Single user report
@@ -18,8 +20,8 @@ def SingleUserReport(request):
         if form.is_valid():
             # getting the inputs
             email = form.cleaned_data['email']
-            send_mail = form.cleaned_data['send_mail']
-            ip = [int(form.cleaned_data['education']),int(form.cleaned_data['income']),int(form.cleaned_data['credit']),int(form.cleaned_data['property_area']),int(form.cleaned_data['amount_term']),int(form.cleaned_data['marital_status']),int(form.cleaned_data['loan_amount'])]
+            mail_send = form.cleaned_data['send_mail']
+            ip = [int(form.cleaned_data['education']),int(form.cleaned_data['income']),int(form.cleaned_data['credit']),int(form.cleaned_data['property_area']),int(form.cleaned_data['amount_term']),int(form.cleaned_data['marital_status']),int(form.cleaned_data['loan_amount'])*100]
 
             # deserializing objects
             lgbm = lightgbm.Booster(model_file='dependencies/lgbm_base.txt')
@@ -35,6 +37,15 @@ def SingleUserReport(request):
                 out = "Eligible for Loan"
             else:
                 out = "Not Eligible for Loan"
+
+            subject = "Loan Approval Status"
+            message = f"""
+                Dear Cusomer,
+                Your Loan Status: {out}
+            """
+            email_from = settings.EMAIL_HOST_USER
+            recipient_list = [email, ]
+            send_mail(subject,message,email_from,recipient_list)
 
     return render(request,'report/single_user.html',{'form':form, 'out':out})
 
