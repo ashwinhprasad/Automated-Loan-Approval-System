@@ -23,6 +23,10 @@
       {{ form.sheet |add_class:'inputfile' }}
       <label for="id_sheet" id="fileLabel">Click here to choose a file</label>
       <div id="file-upload-filename"></div>
+      <div >
+        <label class="singlelabel">Send mail to client?</label>
+         {{ form.mail_send }} 
+      </div>
       <div class="row button">
         <input type="submit" value="Predict">
       </div>
