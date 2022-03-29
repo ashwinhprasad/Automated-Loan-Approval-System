@@ -22,6 +22,7 @@ class SingleUserDetailForm(forms.Form):
     send_mail = forms.BooleanField(label='Send mail to client ?',initial=False,required=False)
 
 class SheetForm(forms.ModelForm):
+    mail_send = forms.BooleanField(label='Send mail to client ?',initial=False,required=False)
     class Meta:
         model = SheetModel
         fields = ('sheet',)
